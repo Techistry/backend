@@ -10,7 +10,7 @@ const addReview = async (req, res) => {
     try {
         const result = await reviewServices_1.default.createReview(reviewData);
         if (!result.success) {
-            res.status(400).json({ error: "Failed to add review" });
+            res.status(400).json({ error: result.message });
             return;
         }
         res.status(201).json(result);

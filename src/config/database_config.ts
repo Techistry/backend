@@ -8,6 +8,6 @@ export const connectDB = async (): Promise<void> => {
     console.log("✅ Connected to MongoDB via Mongoose");
   } catch (error) {
     console.error("❌ MongoDB connection error:", error);
-    throw error; // important to throw to stop the server if DB connection fails
+    throw error;
   }
 };

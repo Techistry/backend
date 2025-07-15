@@ -13,6 +13,7 @@ const sendAdminInviteEmail = async ({ to, first_name, last_name, email, password
         password,
         role,
         loginUrl,
+        year: new Date().getFullYear(),
     });
     await (0, sendMail_1.sendEmail)({
         to,

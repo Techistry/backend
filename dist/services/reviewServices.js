@@ -9,7 +9,10 @@ const createReview = async (reviewData) => {
     try {
         const check = (0, reviewCheck_1.reviewCheck)(reviewData.message);
         if (check === true) {
-            return { success: false, message: "Comment not posted" };
+            return {
+                success: false,
+                message: "Comment not posted - Contains profane word(s).",
+            };
         }
         const newReview = new reviewModel_1.default({
             ...reviewData,

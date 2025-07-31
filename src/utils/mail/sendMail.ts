@@ -28,7 +28,7 @@ export const sendEmail = async ({
 }: MailProps): Promise<void> => {
   try {
     await transporter.sendMail({
-      from: "admin@encoreaitools.com",
+      from: "info@encoreaitools.com",
       to,
       subject,
       text,

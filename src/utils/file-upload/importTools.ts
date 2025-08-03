@@ -1,9 +1,10 @@
-// controllers/toolImportController.ts
 import xlsx from "xlsx";
 import fs from "fs";
 import AI_Tool from "../../models/aiToolModel";
 import { Request, Response } from "express";
 import Category from "../../models/categoryModels";
+
+import { uploadImageFromUrl } from "../imageProxy";
 
 interface ToolRow {
   name: string;
@@ -47,11 +48,16 @@ export const importTools = async (req: Request, res: Response) => {
         });
       }
 
+      const cloudinaryImageUrl = await uploadImageFromUrl(
+        image,
+        name.replace(/\s+/g, "_").toLowerCase()
+      );
+
       toolsToInsert.push({
         name,
         description,
         demo_url,
-        image,
+        image: cloudinaryImageUrl || "",
         category_id: category._id,
         deleted: false,
       });

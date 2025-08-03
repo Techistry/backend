@@ -33,7 +33,7 @@ export const uploadImage = async (req: Request, res: Response) => {
     }
 
     const result = await cloudinary.uploader.upload(filePath, {
-      folder: "encore",
+      folder: "encore-ai",
     });
 
     fs.unlinkSync(filePath);

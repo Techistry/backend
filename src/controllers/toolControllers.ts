@@ -36,9 +36,12 @@ export const addTool = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllTools = async (_req: Request, res: Response) => {
+export const getAllTools = async (req: Request, res: Response) => {
+  const limit = parseInt(req.query.limit as string) || 10;
+  const skip = parseInt(req.query.skip as string) || 0;
+
   try {
-    const tools = await toolServices.getAllTools();
+    const tools = await toolServices.getAllTools(limit, skip);
 
     if (!tools.success) {
       res.status(400).json(tools);

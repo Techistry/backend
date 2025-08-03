@@ -71,12 +71,14 @@ const deleteTool = async (toolId: string) => {
   }
 };
 
-const getAllTools = async () => {
+const getAllTools = async (limit: number, skip: number) => {
   try {
-    const tools = await AI_Tool.find({ deleted: false }).populate(
-      "category_id",
-      "name"
-    );
+    const tools = await AI_Tool.find({ deleted: false })
+      .skip(skip)
+      .limit(limit)
+      .populate("category_id", "name");
+
+    const totalCount = await AI_Tool.countDocuments({ deleted: false });
 
     const toolsWithRatings = await Promise.all(
       tools.map(async (tool) => {
@@ -101,6 +103,8 @@ const getAllTools = async () => {
       success: true,
       message: "Tools fetched successfully",
       data: toolsWithRatings,
+      hasMore: skip + limit < totalCount,
+      total: totalCount,
     };
   } catch (error) {
     console.error("Error fetching tools:", error);
